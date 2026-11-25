@@ -19,6 +19,13 @@ def _enable_dpi_awareness():
         pass
 
 
+def _log_dir():
+    """崩溃日志要落在用户能找到的地方：打包后是 exe 同目录。"""
+    if getattr(sys, "frozen", False):
+        return os.path.dirname(os.path.abspath(sys.executable))
+    return os.path.dirname(os.path.abspath(__file__))
+
+
 def main() -> int:
     _enable_dpi_awareness()
     try:
@@ -29,7 +36,7 @@ def main() -> int:
     except Exception:
         detail = traceback.format_exc()
         try:
-            with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "startup-error.log"), "w", encoding="utf-8") as handle:
+            with open(os.path.join(_log_dir(), "startup-error.log"), "w", encoding="utf-8") as handle:
                 handle.write(detail)
         except OSError:
             pass

@@ -621,6 +621,8 @@ class App(tk.Tk):
         threading.Thread(target=worker, daemon=True).start()
 
     def _show_test_result(self, result):
+        if not self.winfo_exists():
+            return
         if result.get("ok"):
             text = str(result.get("text", ""))[:80].replace("\n", " ")
             self.status_var.set(self.tr("test_ok", text=text))
@@ -777,6 +779,8 @@ class ResultWindow(tk.Toplevel):
         self.after(200, self._poll)
 
     def _poll(self):
+        if not self.winfo_exists():
+            return
         try:
             results, next_index = self.queue.get_nowait()
         except queue.Empty:

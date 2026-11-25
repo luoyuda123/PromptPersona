@@ -1,56 +1,54 @@
-# PromptPersona · 本地用户画像生成器
+# PromptPersona — Local AI Persona & System-Prompt Builder
 
-[![CI](https://github.com/luoyuda123/promptpersona/actions/workflows/ci.yml/badge.svg)](https://github.com/luoyuda123/promptpersona/actions/workflows/ci.yml)
+[![CI](https://github.com/luoyuda123/PromptPersona/actions/workflows/ci.yml/badge.svg)](https://github.com/luoyuda123/PromptPersona/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
+[![No dependencies](https://img.shields.io/badge/dependencies-none-brightgreen.svg)](#)
 
-把「我想要一个懂我的 AI」变成一份可以直接粘贴的系统提示词。
+**Stop re-explaining yourself to every AI tool.** Answer 12 questions once, get a reusable persona file and a system prompt you can paste anywhere — in 10 languages, fully offline, with zero third-party dependencies.
 
-12 道问卷 → 中文标签画像（`persona.json`）→ 中文系统提示词（`persona_system.txt`），
-界面支持十种语言（含阿拉伯语 RTL），可以挂载多个 OpenAI 兼容模型，按轮询 / 并行对比 / 单模型优先三种策略执行。
-**纯 Python 标准库 + Tkinter，不联网也能填问卷，双击即可运行。**
+> Pure Python standard library + Tkinter. No account, no cloud sync, no telemetry. Your answers and API keys never leave your machine.
 
-## 它解决什么问题
+## Why people use it
 
-每次换 AI 工具都要重新解释一遍「我是谁、说话别绕弯、别提我的公司名」——很烦。
-PromptPersona 把这件事做成一次性的：填一次问卷，得到一个固定的画像文件与一段系统提示词，粘到任何支持 System Prompt 的客户端里即可。
+- **Write once, reuse everywhere** — questionnaire → `persona.json` (stable Chinese dimension keys) → `persona_system.txt` ready for any client that accepts a System Prompt
+- **Ten UI languages** — Simplified/Traditional Chinese, English, Japanese, Korean, French, Russian, Spanish, German, and Arabic with a real RTL layout (mirrored panels, reversed table columns)
+- **Bring your own models** — auto-discovery from a built-in OpenAI-compatible catalog, or add any endpoint manually; reorder, enable/disable, test the connection
+- **Three execution strategies** — poll (round-robin with a persisted cursor), parallel comparison (up to 8 concurrent calls), or single-model primary
+- **Private by design** — a separate `secret_note.json` for things you never want repeated, with an optional injection switch
+- **Zero dependencies** — nothing to `pip install` to run it; the standard library `urllib` talks to the models
 
-- **画像用中文标签做键**（`身份与背景`、`沟通风格`……），换界面语言不影响 Agent 读取
-- **私密备注**单独存 `secret_note.json`，可以只留本地、选择是否注入提示词
-- **多模型对照**：同一条提示词同时问几个模型，看谁更懂你
-- **全部本地**：没有账号、没有云同步，API Key 只写在本机
+## Screenshots
 
-## 界面预览
+Simplified Chinese — 12-dimension questionnaire on the left, model mounting on the right.
 
-简体中文：左侧 12 维问卷，右侧模型挂载与运行策略。
+![PromptPersona main window](docs/screenshots/main-zh.png)
 
-![简体中文界面](docs/screenshots/main-zh.png)
+Arabic (RTL) — panels mirrored, alignment and table columns flipped.
 
-阿拉伯语（RTL）：面板左右镜像，按钮与表头对齐方向随之翻转。
+![PromptPersona Arabic RTL layout](docs/screenshots/main-ar.png)
 
-![阿拉伯语界面](docs/screenshots/main-ar.png)
+## Quick start
 
-## 快速开始
-
-1. 安装 Python 3.9 或更高版本（Windows 安装时勾选 *Add python.exe to PATH*，Tkinter 随官方安装包自带）。
-2. 双击 `启动.bat`；或在项目目录执行：
+1. Install **Python 3.9+** (on Windows, tick *Add python.exe to PATH*; Tkinter ships with the official installer).
+2. Windows: double-click `启动.bat`. Or from a terminal:
 
    ```bash
-   py main.py        # Windows 启动器
+   py main.py        # Windows launcher
    python3 main.py   # macOS / Linux
    ```
 
-3. 首次启动会弹出语言选择，选完写入 `config.json`，下次直接进主界面。
-4. 左侧逐题填写（可跳过任意维度），右侧挂载模型，点「生成画像」。
-5. 结果窗口分两页：**系统提示词**（可一键复制）与**模型输出**（各模型对这条提示词的回应）。
+3. On first launch pick your interface language — it is saved to `config.json` and reused next time.
+4. Fill in as many dimensions as you like (empty ones are dropped), mount a model on the right, then click **Generate persona**.
+5. The result window has two tabs: the **system prompt** (one-click copy) and **model outputs** (how each model responds to that prompt).
 
-想直接要一个 exe：双击 `打包exe.bat`，产物在 `dist\PromptPersona.exe`（单文件、免安装）。
+Want a single-file exe? Double-click `打包exe.bat` → `dist\PromptPersona.exe`.
 
-## 界面语言
+## Interface languages
 
-| 代码 | 语言 | 说明 |
+| Code | Language | Notes |
 | --- | --- | --- |
-| `zh` | 简体中文 | 默认 |
+| `zh` | 简体中文 | default |
 | `zh-tw` | 繁體中文 | |
 | `en` | English | |
 | `ja` | 日本語 | |
@@ -59,119 +57,131 @@ PromptPersona 把这件事做成一次性的：填一次问卷，得到一个固
 | `ru` | Русский | |
 | `es` | Español | |
 | `de` | Deutsch | |
-| `ar` | العربية | 从右到左排版，面板左右镜像 |
+| `ar` | العربية | right-to-left, mirrored layout |
 
-十种语言的界面文案、12 道问题全部人工对齐；`tests` 里有一条测试专门校验「所有语言的键完全一致且非空」，缺翻译会直接失败。
+Every string and all 12 questions are translated by hand. A test enforces that **all ten locales share exactly the same key set and none is empty** — a missing translation fails CI.
 
-## 接入模型
+## Connect a model
 
-两种方式，都是 OpenAI 兼容协议（`POST {base_url}/chat/completions`）：
+Both paths speak the OpenAI-compatible protocol (`POST {base_url}/chat/completions`):
 
-- **自动检索**：内置候选库按当前界面语言过滤（GPT-4o、DeepSeek、Qwen、Kimi、Gemini、OpenRouter、Groq、本地 Ollama），选中即挂载
-- **手动添加**：名称 / Base URL / API Key / 模型 ID / 本地路径，Base URL 必须是 `http(s)://`
+- **Auto-discovery** — an 8-entry built-in catalog (GPT-4o, DeepSeek, Qwen, Kimi, Gemini, OpenRouter, Groq, local Ollama), filtered by the current UI language
+- **Manual entry** — name / base URL / API key / model ID / local path; the base URL must start with `http(s)://`
 
-挂载后可以排序、启用停用、测连接、清空。本地模型示例：
+Local model example:
 
 ```
 Base URL : http://127.0.0.1:11434/v1
-模型 ID  : qwen2.5:7b
-API Key  : 留空
+Model ID : qwen2.5:7b
+API key  : leave empty
 ```
 
-## 三种执行策略
+## Execution strategies
 
-| 策略 | 行为 | 适合 |
+| Strategy | Behaviour | Good for |
 | --- | --- | --- |
-| 轮询（poll） | 每次只问下一个模型，游标自动推进并记住 | 想轮流省钱 / 分摊额度 |
-| 并行对比（parallel） | 同时问所有启用模型（最多 8 并发），结果并排看 | 挑模型、对比风格 |
-| 单模型优先（primary） | 只问列表第一个启用模型 | 已经选定主力模型 |
+| Poll | Ask the next enabled model each run; the cursor is saved | Spreading quota / cost |
+| Parallel | Ask all enabled models at once (max 8 workers), compare side by side | Picking a model, comparing style |
+| Primary | Only the first enabled model | You already picked a favourite |
 
-网络请求全部在后台线程，界面不会卡；失败只会显示错误文本，不会弹异常。
+All requests run on background threads — the UI never freezes, and failures surface as text instead of tracebacks.
 
-## 生成的文件
+## Generated files
 
-| 文件 | 内容 | 是否可入库 |
+| File | Contents | Commit to git? |
 | --- | --- | --- |
-| `config.json` | 语言、策略、模型列表（含 API Key）、问卷答案 | 否，`.gitignore` 已排除 |
-| `persona.json` | 中文标签画像 | 否，个人数据 |
-| `secret_note.json` | 私密备注与是否注入 | 否 |
-| `persona_system.txt` | 最终系统提示词 | 否 |
+| `config.json` | language, strategy, models (including API keys), answers | **No** — already in `.gitignore` |
+| `persona.json` | the persona with Chinese dimension keys | No — personal data |
+| `secret_note.json` | private note + whether to inject it | No |
+| `persona_system.txt` | the final system prompt | No |
 
-源码运行时文件写在项目根目录；打包成 exe 后写在 exe 同目录（`storage.app_dir()` 负责区分）。
-JSON 写入是「临时文件 + `os.replace`」，中途断电不会写坏原文件。
+When run from source these live in the project root; in a packaged exe they sit next to the executable (`storage.app_dir()` handles the difference). JSON is written atomically (temp file + `os.replace`), so a crash mid-write cannot corrupt your config.
 
-## 项目结构
+## Project layout
 
 ```
 .
-├── main.py                  # 入口：DPI 感知、启动、异常兜底
+├── main.py                  # entry point: DPI awareness, crash log fallback
 ├── app/
-│   ├── ui.py                # Tkinter 主界面、结果窗口、RTL 处理
-│   ├── i18n.py              # 十语言文案、12 维问题与中文标签
-│   ├── models.py            # 候选库、校验、去重、排序
-│   ├── persona.py           # 画像与系统提示词构建
-│   ├── providers.py         # OpenAI 兼容调用与三种策略
-│   └── storage.py           # 原子读写与默认值合并
-├── tests/test_core.py       # 30 项单元测试（含本地假服务器）
+│   ├── ui.py                # Tkinter UI, result window, RTL handling
+│   ├── i18n.py              # 10 locales, 12 questions, fixed Chinese labels
+│   ├── models.py            # catalog, validation, dedupe, ordering
+│   ├── persona.py           # persona + system-prompt builder
+│   ├── providers.py         # OpenAI-compatible calls, 3 strategies
+│   └── storage.py           # atomic JSON/TXT storage with defaults
+├── tests/test_core.py       # 30 unit tests, incl. a local stub server
 ├── 启动.bat / 运行测试.bat / 打包exe.bat
-├── 项目方案.txt / 第一代.txt  # 设计文档（第一代实现要点）
-└── .github/workflows/       # CI + 打 tag 构建 exe
+├── 项目方案.txt / 第一代.txt  # original design notes (Chinese)
+└── .github/workflows/       # CI + tag-triggered exe build
 ```
 
-## 开发与测试
+## Development & tests
 
 ```bash
 py -m compileall -q app main.py tests
 py -m unittest discover -s tests -v
 ```
 
-Windows 上也可以双击 `运行测试.bat`。测试不依赖显示器，覆盖：
+Windows users can double-click `运行测试.bat`. The suite needs no display and covers:
 
-- 十语言键一致性、占位符渲染、RTL 判定
-- 画像只保留非空维度、中文标签、备注注入开关
-- 模型候选过滤、字段校验、去重、排序
-- 配置文件默认合并、坏 JSON 兜底、原子写入
-- 本地 HTTP 假服务器模拟 OpenAI 响应：成功、HTTP 错误、非 JSON 响应
-- 轮询游标推进、并行结果合并、单模型优先
+- locale key parity, placeholder rendering, RTL detection
+- persona keeps only non-empty dimensions, uses Chinese labels, honours the note toggle
+- catalog filtering, field validation, duplicate detection, reordering
+- config default merging, corrupted-JSON fallback, atomic writes
+- a local HTTP stub emulating OpenAI responses: success, HTTP error, non-JSON body
+- poll cursor advance, parallel result merging, primary-only selection
 
-### 新增一种界面语言
+### Add a locale
 
-1. 在 `app/i18n.py` 的 `LANGS` 加一项（`code` / `label` / `rtl`）；
-2. 在 `STRINGS` 补同键文案（必须覆盖全部键，`q1..q12` 也要）；
-3. 跑一次测试，键不一致会立刻报错。
+1. Add an entry to `LANGS` in `app/i18n.py` (`code` / `label` / `rtl`);
+2. Fill every key in `STRINGS` (including `q1..q12`);
+3. Run the tests — key parity is enforced.
 
-### 新增内置候选模型
+### Add a built-in model
 
-在 `app/models.py` 的 `CATALOG` 加一条：`name` / `base_url` / `model` / `langs`（`all` 表示所有语言可见）。
+Append one entry to `CATALOG` in `app/models.py`: `name` / `base_url` / `model` / `langs` (use the real locale codes).
 
-## 打包 exe
+## Build a Windows exe
 
 ```bash
 py -m pip install pyinstaller
 py -m PyInstaller --noconfirm --clean --onefile --windowed --name PromptPersona main.py
 ```
 
-或者直接双击 `打包exe.bat`（会自动检查并安装 PyInstaller）。
-`--onefile` 首次启动要解压，慢一两秒属正常；杀软误报可以改用 `--onedir`。
+Or just double-click `打包exe.bat` (it installs PyInstaller if missing).
+`--onefile` extracts on first start, so the first launch takes a second or two. If your antivirus complains, switch to `--onedir`.
 
-推 `v*` 标签时，`.github/workflows/build-exe.yml` 会在 Windows runner 上构建 exe 并作为 artifact 上传。
+Pushing a `v*` tag makes `.github/workflows/build-exe.yml` build the exe on a Windows runner and upload it as an artifact.
 
-## 隐私
+## Privacy & security
 
-- 问卷答案、备注、API Key 全部只存在本机文件里，代码不包含任何上报逻辑
-- 只有点击「测试连接 / 生成画像」并挂载了模型时才会发起网络请求，目标就是你自己填的 Base URL
-- 分享仓库前确认 `config.json`、`persona*.json`、`secret_note.json` 没有被提交（`.gitignore` 已默认排除）
+- Answers, notes and API keys are stored **only** in local files; the code contains no reporting logic
+- Network calls happen only when you click *test connection* or *generate*, and only to the base URL you entered
+- `config.json`, `persona*.json` and `secret_note.json` are git-ignored by default — double-check before sharing a fork
 
-## 常见问题
+## FAQ
 
-**双击没反应？** 看项目目录下的 `startup-error.log`，里面是完整堆栈。
+**Nothing happens when I double-click.** Check `startup-error.log` next to the app for the full traceback.
 
-**提示找不到 `py`？** 没装 Python 或没加 PATH；装完重开命令行。也可以把 `启动.bat` 里的 `py` 换成 `python`。
+**"py" is not recognized.** Install Python and reopen the terminal, or edit `启动.bat` to call `python` instead.
 
-**模型测连接失败？** 先确认 Base URL 带 `/v1`（如 `https://api.deepseek.com/v1`），再确认 Key 有额度；本地模型要先启动 Ollama。
+**Connection test fails.** Make sure the base URL ends with `/v1` (e.g. `https://api.deepseek.com/v1`) and that the key has quota; for local models start Ollama first.
 
-**换语言后界面没变？** 语言切换会重建界面并保留已填答案；如果异常，删掉 `config.json` 重开即可。
+**The UI did not change language.** Switching rebuilds the window and keeps your answers; if it misbehaves, delete `config.json` and relaunch.
 
-## 许可证
+## Roadmap
+
+- Model benchmark score (latency / cost / style) recorded per run
+- Optional cloud catalog sync and import/export of persona packs
+- More granular prompt templates (task-specific add-ons)
+
+## License
 
 [MIT](LICENSE)
+
+---
+
+### 中文简介
+
+PromptPersona 是一个完全本地的用户画像生成器：填 12 道题，得到稳定中文标签的 `persona.json` 与可直接粘贴的系统提示词。
+十种界面语言（含阿拉伯语 RTL）、OpenAI 兼容模型挂载、轮询/并行/单模型优先三种策略，纯标准库 + Tkinter，双击 `启动.bat` 即可运行。
