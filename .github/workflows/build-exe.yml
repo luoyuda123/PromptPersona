@@ -8,30 +8,30 @@ on:
 
 jobs:
   build:
-    name: 打包 Windows 单文件
+    name: Package Windows single-file exe
     runs-on: windows-latest
     steps:
-      - name: 检出代码
-        uses: actions/checkout@v4
+      - name: Check out
+        uses: actions/checkout@v5
 
-      - name: 安装 Python
-        uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v6
         with:
           python-version: "3.13"
 
-      - name: 安装 PyInstaller
+      - name: Install PyInstaller
         run: python -m pip install --upgrade pyinstaller
 
-      - name: 打包
+      - name: Build
         run: python -m PyInstaller --noconfirm --clean --onefile --windowed --name PromptPersona main.py
 
-      - name: 验证产物存在
+      - name: Verify artifact
         run: |
-          if (-not (Test-Path "dist/PromptPersona.exe")) { throw "未生成 exe" }
+          if (-not (Test-Path "dist/PromptPersona.exe")) { throw "PromptPersona.exe was not produced" }
           Get-Item "dist/PromptPersona.exe" | Select-Object Name, Length
         shell: pwsh
 
-      - name: 上传构建产物
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: PromptPersona-windows
