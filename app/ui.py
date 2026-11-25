@@ -351,7 +351,9 @@ class App(tk.Tk):
     def ask_language(self, first_run=False):
         top = tk.Toplevel(self)
         top.title(self.tr("lang_title"))
-        top.transient(self)
+        # 首次启动时主窗口是 withdraw 的，transient 会让子窗口一起隐藏，所以只在之后再绑定
+        if not first_run:
+            top.transient(self)
         top.resizable(False, False)
         top.grab_set()
 
@@ -393,6 +395,8 @@ class App(tk.Tk):
             top.geometry("+%d+%d" % (x, y))
         except tk.TkError:
             pass
+        top.deiconify()
+        top.lift()
         if first_run:
             top.wait_window()
 

@@ -3,22 +3,36 @@ chcp 65001 >nul
 setlocal
 cd /d "%~dp0"
 
+rem 优先用 py 启动器给出的真实解释器路径，避开 WindowsApps 别名丢参数的问题
+set "PYEXE="
+set "PYWEXE="
 where py >nul 2>nul
 if %errorlevel%==0 (
-    start "" pyw main.py
-    goto :eof
+    for /f "delims=" %%P in ('py -c "import sys;print(sys.executable)" 2^>nul') do set "PYEXE=%%P"
+)
+if defined PYEXE set "PYWEXE=%PYEXE:python.exe=pythonw.exe%"
+
+if defined PYWEXE if exist "%PYWEXE%" (
+    start "" "%PYWEXE%" "%~dp0main.py"
+    exit /b
 )
 
 where pythonw >nul 2>nul
 if %errorlevel%==0 (
-    start "" pythonw main.py
-    goto :eof
+    start "" pythonw "%~dp0main.py"
+    exit /b
+)
+
+where py >nul 2>nul
+if %errorlevel%==0 (
+    start "" py "%~dp0main.py"
+    exit /b
 )
 
 where python >nul 2>nul
 if %errorlevel%==0 (
-    python main.py
-    goto :eof
+    start "" python "%~dp0main.py"
+    exit /b
 )
 
 echo.
