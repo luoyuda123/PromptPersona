@@ -20,6 +20,16 @@ PromptPersona 把这件事做成一次性的：填一次问卷，得到一个固
 - **多模型对照**：同一条提示词同时问几个模型，看谁更懂你
 - **全部本地**：没有账号、没有云同步，API Key 只写在本机
 
+## 界面预览
+
+简体中文：左侧 12 维问卷，右侧模型挂载与运行策略。
+
+![简体中文界面](docs/screenshots/main-zh.png)
+
+阿拉伯语（RTL）：面板左右镜像，按钮与表头对齐方向随之翻转。
+
+![阿拉伯语界面](docs/screenshots/main-ar.png)
+
 ## 快速开始
 
 1. 安装 Python 3.9 或更高版本（Windows 安装时勾选 *Add python.exe to PATH*，Tkinter 随官方安装包自带）。
