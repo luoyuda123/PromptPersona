@@ -1,0 +1,63 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.vscode/
+.idea/
+.history/
+
+# Node
+node_modules/
+dist/
+build/
+coverage/
+*.log
+npm-debug.log*
+
+# Python
+__pycache__/
+.venv/
+venv/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# 本地环境与密钥（务必不入库）
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets.json
+
+# PromptPersona 运行产物（含 API Key 与个人画像，禁止入库）
+config.json
+persona.json
+secret_note.json
+persona_system.txt
+startup-error.log
+*.spec
+
+# 构建产物
+*.exe
+*.dll
+*.so
+*.dylib
+*.o
+*.obj
+
+# 临时与备份文件
+*.tmp
+*.bak
+*.orig
+*.rej
+*.lnk
+*~
+
+# 压缩包
+*.zip
+*.tar.gz
+*.rar
+*.7z
