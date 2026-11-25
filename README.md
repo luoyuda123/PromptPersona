@@ -1,13 +1,23 @@
 # PromptPersona — Local AI Persona & System-Prompt Builder
 
 [![CI](https://github.com/luoyuda123/PromptPersona/actions/workflows/ci.yml/badge.svg)](https://github.com/luoyuda123/PromptPersona/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/luoyuda123/PromptPersona?sort=semver)](https://github.com/luoyuda123/PromptPersona/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
 [![No dependencies](https://img.shields.io/badge/dependencies-none-brightgreen.svg)](#)
+[![Stars](https://img.shields.io/github/stars/luoyuda123/PromptPersona?style=social)](https://github.com/luoyuda123/PromptPersona/stargazers)
 
 **Stop re-explaining yourself to every AI tool.** Answer 12 questions once, get a reusable persona file and a system prompt you can paste anywhere — in 10 languages, fully offline, with zero third-party dependencies.
 
 > Pure Python standard library + Tkinter. No account, no cloud sync, no telemetry. Your answers and API keys never leave your machine.
+
+## Download
+
+**[⬇ PromptPersona.exe (Windows, single file, no Python needed)](https://github.com/luoyuda123/PromptPersona/releases/latest)** — built by GitHub Actions on every `v*` tag.
+
+- Windows 10/11, 13 MB, unsigned. SmartScreen may warn on first run: *More info → Run anyway*.
+- SHA-256 of `v1.0.0`: `757EB005097840E124898A402ABC28AF2CDF682D173E2BBD1BC3E6316C6C5FA9`
+- Prefer running from source? See [Quick start](#quick-start) — it needs nothing but Python.
 
 ## Why people use it
 
@@ -29,6 +39,8 @@ Arabic (RTL) — panels mirrored, alignment and table columns flipped.
 ![PromptPersona Arabic RTL layout](docs/screenshots/main-ar.png)
 
 ## Quick start
+
+> No Python on your machine? Use the release exe above. The steps below run it from source.
 
 1. Install **Python 3.9+** (on Windows, tick *Add python.exe to PATH*; Tkinter ships with the official installer).
 2. Windows: double-click `启动.bat`. Or from a terminal:
