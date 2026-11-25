@@ -1,17 +1,18 @@
-# 更新日志
+# Changelog
 
-版本号遵循语义化版本：主版本改行为、次版本加功能、修订版只修 bug。
+Semantic versioning: major = behaviour change, minor = new features, patch = fixes only.
 
-## 1.0.0（2026-11-25）
+## 1.0.0 (2026-11-25)
 
-首个可用版本。
+First usable release.
 
-- 12 维问卷 → 中文标签画像（`persona.json`）+ 可直接粘贴的中文系统提示词（`persona_system.txt`）
-- 十种界面语言：简中 / 繁中 / 英 / 日 / 韩 / 法 / 俄 / 西 / 德 / 阿拉伯（RTL，面板与文案镜像）
-- 语言与模型绑定：自动检索的候选库按当前界面语言过滤，手动添加不受限
-- 多模型挂载：自动检索 / 手动添加 / 排序 / 启用停用 / 测连接 / 清空
-- 三种执行策略：轮询（游标持久化）、并行对比（最多 8 并发）、单模型优先
-- OpenAI 兼容接入（`POST {base_url}/chat/completions`），支持本地 Ollama
-- 全本地持久化：配置、画像、私密备注均为原子写入的 JSON/TXT，不上报任何数据
-- 30 项单元测试（含本地假服务器覆盖 HTTP 成功 / 错误 / 非 JSON 三种响应）
-- GitHub Actions：Python 3.9 / 3.12 / 3.13 + Windows 跑测试；打 `v*` 标签自动构建单文件 exe
+- 12-dimension questionnaire → persona with stable Chinese dimension labels (`persona.json`), plus a paste-ready Chinese system prompt (`persona_system.txt`)
+- Ten interface languages: Simplified/Traditional Chinese, English, Japanese, Korean, French, Russian, Spanish, German, Arabic (RTL with mirrored panels and alignment)
+- Language-aware catalog: built-in model suggestions are filtered by the current UI language, manual entries are unrestricted
+- Model mounting: auto-discovery, manual add, reorder, enable/disable, connection test, clear
+- Three execution strategies: poll (persisted cursor), parallel comparison (up to 8 workers), primary only
+- OpenAI-compatible access (`POST {base_url}/chat/completions`), including local Ollama
+- Fully local persistence: atomic JSON/TXT writes for config, persona and private note; nothing is reported anywhere
+- 30 unit tests, including a local stub server covering HTTP success, HTTP error and non-JSON bodies
+- GitHub Actions: Python 3.9 / 3.12 / 3.13 plus Windows; a `v*` tag builds a single-file exe automatically
+- `v1.0.0` ships a signed-by-CI Windows exe on the Releases page (SHA-256 in README)
