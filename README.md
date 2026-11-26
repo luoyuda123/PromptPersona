@@ -174,7 +174,6 @@ Keys map to the 12 dimensions (`dim1` identity & background, `dim2` language & r
 │   └── storage.py           # atomic JSON/TXT storage with defaults
 ├── tests/test_core.py       # 30 unit tests, incl. a local stub server
 ├── 启动.bat / 运行测试.bat / 打包exe.bat
-├── 项目方案.txt / 第一代.txt  # original design notes (Chinese)
 └── .github/workflows/       # CI + tag-triggered exe build
 ```
 
