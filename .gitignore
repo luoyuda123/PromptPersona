@@ -60,8 +60,7 @@ startup-error.log
 *.lnk
 *~
 
-# 压缩包
-*.zip
+# 压缩包（zip 不再忽略：portable 发行包需要能被本地打包脚本引用）
 *.tar.gz
 *.rar
 *.7z

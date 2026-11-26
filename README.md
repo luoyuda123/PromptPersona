@@ -23,6 +23,7 @@
 
 - Windows 10/11, 13 MB, unsigned. SmartScreen may warn on first run: *More info → Run anyway*.
 - SHA-256 of `v1.0.0`: `757EB005097840E124898A402ABC28AF2CDF682D173E2BBD1BC3E6316C6C5FA9`
+- **Portable zip instead?** [PromptPersona-1.0.0-windows-portable.zip](https://github.com/luoyuda123/PromptPersona/releases/download/v1.0.0/PromptPersona-1.0.0-windows-portable.zip) — same exe plus `LICENSE` and `README.md`, unpack anywhere and run (no installer, no registry writes). SHA-256: `D2CAC69DE713C1C3B9F4AF8C9A3A66B5481EABDECAF568801AAC33B39BD91673`
 - Prefer running from source? See [Quick start](#quick-start) — it needs nothing but Python.
 
 > If it saves you prompt-writing time, a ⭐ on the repo is the only way a small project like this gets found.
