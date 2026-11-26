@@ -11,6 +11,8 @@
 
 > Pure Python standard library + Tkinter. No account, no cloud sync, no telemetry. Your answers and API keys never leave your machine.
 
+**Jump to:** [Download](#download) · [Why](#why-people-use-it) · [Who it's for](#who-its-for) · [How it compares](#how-it-compares) · [Screenshots](#screenshots) · [Quick start](#quick-start) · [Languages](#interface-languages) · [Models](#connect-a-model) · [Strategies](#execution-strategies) · [Output files](#generated-files) · [Privacy](#privacy--security) · [FAQ](#faq)
+
 ## Download
 
 **[⬇ PromptPersona.exe (Windows, single file, no Python needed)](https://github.com/luoyuda123/PromptPersona/releases/latest)** — built by GitHub Actions on every `v*` tag.
@@ -27,6 +29,23 @@
 - **Three execution strategies** — poll (round-robin with a persisted cursor), parallel comparison (up to 8 concurrent calls), or single-model primary
 - **Private by design** — a separate `secret_note.json` for things you never want repeated, with an optional injection switch
 - **Zero dependencies** — nothing to `pip install` to run it; the standard library `urllib` talks to the models
+
+## Who it's for
+
+- **People using several AI tools** — one persona file, pasted into ChatGPT, Claude, a coding agent or a local model, so every tool starts from the same picture of you.
+- **Anyone who keeps retyping "my background is…"** — the 12 dimensions cover identity, goals, constraints, tone, taboos and output requirements; empty answers are simply skipped.
+- **Privacy-minded users** — everything stays in local JSON/TXT; only the model call you trigger touches the network.
+
+## How it compares
+
+| | PromptPersona | Copy-pasting a prompt | Cloud persona service |
+| --- | --- | --- | --- |
+| Where your data lives | local files you can read and edit | wherever you paste it | vendor servers |
+| Reusable artifact | `persona.json` + `persona_system.txt` | scattered text | locked in an account |
+| Model freedom | any OpenAI-compatible endpoint | any | only the vendor's models |
+| UI languages | 10, including Arabic RTL | n/a | varies |
+| Dependencies | none (stdlib + Tkinter) | none | account, subscription, network |
+| Cost | free, MIT | free | usually metered |
 
 ## Screenshots
 
@@ -108,6 +127,19 @@ All requests run on background threads — the UI never freezes, and failures su
 | `persona_system.txt` | the final system prompt | No |
 
 When run from source these live in the project root; in a packaged exe they sit next to the executable (`storage.app_dir()` handles the difference). JSON is written atomically (temp file + `os.replace`), so a crash mid-write cannot corrupt your config.
+
+`persona.json` keeps stable keys, so you can edit it by hand or diff two versions:
+
+```json
+{
+  "dim1": "广州的产品运营，白天上班、晚上折腾 AI 工具",
+  "dim3": "先给结论，再给步骤，少寒暄",
+  "dim6": "晚上 9 点后回消息慢，周末不处理工作",
+  "dim10": "不要用营销腔，不要替我编数据"
+}
+```
+
+Keys map to the 12 dimensions (`dim1` identity & background, `dim2` language & region, `dim3` communication style … `dim12` anything else); missing dimensions are omitted rather than stored as empty strings.
 
 ## Project layout
 
