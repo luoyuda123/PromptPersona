@@ -7,11 +7,13 @@
 [![No dependencies](https://img.shields.io/badge/dependencies-none-brightgreen.svg)](#)
 [![Stars](https://img.shields.io/github/stars/luoyuda123/PromptPersona?style=social)](https://github.com/luoyuda123/PromptPersona/stargazers)
 
+**Website:** https://luoyuda123.github.io/PromptPersona/
+
 **Stop re-explaining yourself to every AI tool.** Answer 12 questions once, get a reusable persona file and a system prompt you can paste anywhere — in 10 languages, fully offline, with zero third-party dependencies.
 
 > Pure Python standard library + Tkinter. No account, no cloud sync, no telemetry. Your answers and API keys never leave your machine.
 
-**One session gives you three files:** `system-prompt.md` to paste into any chat, `persona.md` as a human-readable profile, and `persona.json` with stable keys for scripts, agents, or diffing versions over time.
+**One session gives you three files:** `persona_system.txt` to paste into any chat, `persona.json` with stable `dim1…dim12` keys for scripts and diffing, and `config.json` holding your models and answers (git-ignored, never uploaded).
 
 **Jump to:** [Download](#download) · [Why](#why-people-use-it) · [Who it's for](#who-its-for) · [How it compares](#how-it-compares) · [Screenshots](#screenshots) · [Quick start](#quick-start) · [Languages](#interface-languages) · [Models](#connect-a-model) · [Strategies](#execution-strategies) · [Output files](#generated-files) · [Privacy](#privacy--security) · [FAQ](#faq)
 
@@ -50,6 +52,18 @@
 | UI languages | 10, including Arabic RTL | n/a | varies |
 | Dependencies | none (stdlib + Tkinter) | none | account, subscription, network |
 | Cost | free, MIT | free | usually metered |
+
+### Alternatives, and when they fit better
+
+Being honest about the neighbours saves you a download:
+
+- **Fabric** (`danielmiessler/fabric`) — a terminal-first library of curated prompt patterns. Great if you already live in a shell and want other people's patterns; it does not interview you, so the persona is not yours.
+- **PromptPerfect / prompt optimisers** — cloud services that rewrite one prompt at a time. Strong at micro-optimisation, but each prompt goes to their servers and nothing accumulates into a reusable profile.
+- **LangGPT-style templates** — Markdown templates you fill in by hand. Full control, zero tooling; the downside is that hand-filled sections drift and you re-edit them for every tool.
+- **Persona/system-prompt fields inside a chat UI** (Open WebUI, LibreChat, ChatGPT custom instructions) — convenient, but the prompt is trapped in that product and does not follow you to the next one.
+- **A hand-kept system prompt in a gist** — free and versionable, which is exactly what `persona_system.txt` in a git repo also gives you; this tool only removes the writing work.
+
+Where PromptPersona wins is narrow: you want a **structured, repeatable interview**, a **machine-readable output**, and the **same file working across vendors**. If you only use one chat app forever, its built-in instruction box is enough.
 
 ## Screenshots
 

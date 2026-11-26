@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PromptPersona — answer 12 questions once, reuse your AI persona everywhere</title>
+<meta name="description" content="A free, offline desktop app that turns a 12-question interview into a reusable AI persona and system prompt. Any OpenAI-compatible model, 10 UI languages, zero dependencies, Windows exe.">
+<meta property="og:title" content="PromptPersona — reusable AI persona + system prompt, offline">
+<meta property="og:description" content="12 questions once → persona_system.txt + persona.json. Works with OpenAI, Ollama, LM Studio. Zero dependencies, MIT.">
+<meta property="og:image" content="https://luoyuda123.github.io/PromptPersona/social-preview.jpg">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://luoyuda123.github.io/PromptPersona/">
+<style>
+:root{
+  --bg:#070b14; --panel:#0e1524; --line:#1d2942; --text:#e8eefc;
+  --muted:#94a3c4; --accent:#4cc9f0; --accent2:#7b61ff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+  font:16px/1.65 -apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+  -webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+header{padding:64px 0 40px;background:
+  radial-gradient(900px 380px at 12% -10%,rgba(76,201,240,.16),transparent 70%),
+  radial-gradient(700px 320px at 88% 0%,rgba(123,97,255,.14),transparent 70%)}
+.badge{display:inline-block;font-size:13px;color:var(--muted);border:1px solid var(--line);
+  padding:5px 12px;border-radius:999px;margin-bottom:20px}
+h1{font-size:44px;line-height:1.15;margin:0 0 14px;letter-spacing:-.02em}
+h1 span{color:var(--accent)}
+.lede{font-size:18px;color:var(--muted);max-width:640px;margin:0 0 28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.btn{display:inline-block;padding:12px 22px;border-radius:10px;font-weight:600;font-size:15px}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04121b}
+.btn.ghost{border:1px solid var(--line);color:var(--text)}
+.note{font-size:13px;color:var(--muted)}
+main{padding:8px 0 72px}
+section{padding:40px 0;border-top:1px solid var(--line)}
+h2{font-size:22px;margin:0 0 18px;letter-spacing:-.01em}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+.card h3{margin:0 0 8px;font-size:16px}
+.card p{margin:0;color:var(--muted);font-size:14px}
+.shot{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:8px}
+.shot img{display:block;width:100%;height:auto}
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+ol.steps li{counter-increment:s;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+ol.steps li b{display:block;font-size:15px;margin-bottom:6px}
+ol.steps li b::before{content:counter(s);display:inline-flex;width:22px;height:22px;border-radius:50%;
+  background:var(--accent);color:#04121b;font-size:12px;align-items:center;justify-content:center;margin-right:8px}
+ol.steps li span{color:var(--muted);font-size:14px}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;overflow:auto;font-size:14px}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:600}
+details{border-bottom:1px solid var(--line);padding:14px 0}
+summary{cursor:pointer;font-weight:600}
+details p{margin:10px 0 0;color:var(--muted);font-size:14px}
+footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+footer a{color:var(--muted)}
+@media(max-width:640px){h1{font-size:32px}.lede{font-size:16px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="badge">Free · MIT · No account · No telemetry</div>
+    <h1>Stop re-explaining yourself<br>to <span>every AI tool</span>.</h1>
+    <p class="lede">Answer 12 questions once. Get a reusable AI persona and a system prompt that works in ChatGPT, Claude, a coding agent, or a local Ollama model — from one file you own.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/luoyuda123/PromptPersona/releases/latest">Download for Windows (.exe, 13 MB)</a>
+      <a class="btn ghost" href="https://github.com/luoyuda123/PromptPersona">View source on GitHub</a>
+    </div>
+    <p class="note">Windows 10/11 · unsigned, SmartScreen warns once → More info → Run anyway · or run from source with Python 3.9+</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section>
+    <h2>What it actually does</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>12 fixed dimensions</h3>
+        <p>Identity, language, tone, domain, rhythm, decision style, format preference, taboos, goals. Same questions every time, so profiles stay comparable across versions.</p>
+      </div>
+      <div class="card">
+        <h3>Three files you keep</h3>
+        <p><code>persona_system.txt</code> to paste anywhere, <code>persona.json</code> with stable keys for scripts, <code>config.json</code> for your models and answers. All local.</p>
+      </div>
+      <div class="card">
+        <h3>Any OpenAI-compatible model</h3>
+        <p>OpenAI, DeepSeek, Qwen, Kimi, Gemini, OpenRouter, Groq, or a local Ollama / LM Studio endpoint. Your key never leaves your machine.</p>
+      </div>
+      <div class="card">
+        <h3>10 UI languages, RTL included</h3>
+        <p>Chinese, English, Arabic (right-to-left), Japanese, Korean, Spanish, French, German, Portuguese, Russian. Translations are enforced by tests.</p>
+      </div>
+      <div class="card">
+        <h3>Three execution strategies</h3>
+        <p>Poll (rotate quota), Parallel (compare up to 8 models side by side), Primary (just your favourite).</p>
+      </div>
+      <div class="card">
+        <h3>Zero dependencies</h3>
+        <p>Python standard library + Tkinter only. No pip install, no Electron, no 200 MB runtime.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li><b>Answer the interview</b><span>Twelve short questions, each skippable. Empty answers are omitted, never stored as blanks.</span></li>
+      <li><b>Pick a model and strategy</b><span>Built-in catalog or a manual base URL. Requests run on background threads, so the window never freezes.</span></li>
+      <li><b>Generate and paste</b><span>You get a system prompt tuned to one of three strategies, plus the JSON profile behind it.</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Screenshots</h2>
+    <div class="shot"><img src="screenshots/main-zh.png" alt="PromptPersona in Simplified Chinese: 12-dimension questionnaire on the left, model configuration on the right" loading="lazy"></div>
+    <p class="note" style="margin-top:10px">Simplified Chinese — questionnaire on the left, model setup on the right.</p>
+    <div class="shot" style="margin-top:16px"><img src="screenshots/main-ar.png" alt="PromptPersona in Arabic with right-to-left layout" loading="lazy"></div>
+    <p class="note" style="margin-top:10px">Arabic — the whole layout mirrors for RTL.</p>
+  </section>
+
+  <section>
+    <h2>Run it locally</h2>
+<pre><code>git clone https://github.com/luoyuda123/PromptPersona.git
+cd PromptPersona
+python main.py          # Windows shortcut: 启动.bat</code></pre>
+    <p class="note">No <code>pip install</code> step — the app imports only the standard library. On a local endpoint, leave the API key empty: <code>http://127.0.0.1:11434/v1</code> + <code>qwen2.5:7b</code> is a working Ollama setup.</p>
+  </section>
+
+  <section>
+    <h2>How it compares</h2>
+    <table>
+      <tr><th></th><th>PromptPersona</th><th>Copy-pasting a prompt</th><th>Cloud persona service</th></tr>
+      <tr><td>Where your data lives</td><td>local files you can read</td><td>wherever you paste</td><td>vendor servers</td></tr>
+      <tr><td>Reusable artifact</td><td><code>persona.json</code> + <code>persona_system.txt</code></td><td>scattered text</td><td>locked in an account</td></tr>
+      <tr><td>Model freedom</td><td>any OpenAI-compatible endpoint</td><td>any</td><td>only the vendor's models</td></tr>
+      <tr><td>Cost</td><td>free, MIT</td><td>free</td><td>usually metered</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>FAQ</h2>
+    <details><summary>Does it send my answers anywhere?</summary>
+      <p>No. Answers and API keys are written to <code>config.json</code> next to the app. The only network call is the one you trigger against your own model endpoint.</p></details>
+    <details><summary>Why is the exe unsigned?</summary>
+      <p>Code-signing certificates cost money and this is a free MIT project. The build comes from GitHub Actions; the SHA-256 of each release is published in the README so you can verify the file yourself.</p>
+    </details>
+    <details><summary>Can I use it without any API key?</summary>
+      <p>Yes, with a local model. Point the base URL at Ollama, LM Studio or vLLM and leave the key empty.</p></details>
+    <details><summary>Is there a Mac or Linux build?</summary>
+      <p>The source runs anywhere Python 3.9+ and Tkinter exist (<code>python main.py</code>). Only Windows ships a prebuilt exe today.</p></details>
+    <details><summary>What exactly are the 12 dimensions?</summary>
+      <p>Identity &amp; background, language &amp; region, communication style, domain expertise, interests, work rhythm, decision preferences, technical skill, format preferences, taboos, goals, and free-form notes. Keys are <code>dim1</code>…<code>dim12</code> in <code>persona.json</code>.</p></details>
+  </section>
+
+  <section>
+    <h2>If it saves you time</h2>
+    <p class="note" style="margin:0">A star on GitHub is the only way a small MIT project like this gets found. No newsletter, no ads — just people passing it on.</p>
+    <p style="margin-top:14px"><a class="btn ghost" href="https://github.com/luoyuda123/PromptPersona/stargazers">⭐ Star on GitHub</a></p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p style="margin:0 0 8px">PromptPersona · MIT licensed · built with Python and Tkinter · <a href="https://github.com/luoyuda123/PromptPersona">source</a> · <a href="https://github.com/luoyuda123/PromptPersona/releases/latest">releases</a> · <a href="https://github.com/luoyuda123/PromptPersona/issues">issues</a></p>
+    <p style="margin:0" lang="zh">中文简介：答完 12 个问题，生成一份可反复使用的 AI 人设与系统提示词；纯本地、零第三方依赖、支持 10 种界面语言（含阿拉伯语 RTL）。</p>
+  </div>
+</footer>
+</body>
+</html>
