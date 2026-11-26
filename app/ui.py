@@ -23,7 +23,6 @@ from tkinter import messagebox, ttk
 
 from . import i18n, models, persona, providers, storage
 
-
 FONT_BY_LANG = {
     "zh": "Microsoft YaHei UI",
     "zh-tw": "Microsoft JhengHei UI",

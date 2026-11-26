@@ -1,0 +1,11 @@
+# 工具配置（不是打包配置）：项目按“源码 + Tkinter”分发，不发布到 PyPI
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+extend-exclude = ["docs", "build", "dist"]
+
+[tool.ruff.lint]
+# 只启用“会真的出错”的规则：语法/未定义名/导入顺序。
+# 风格类（f-string 化、异常别名等）不强制，避免为改而改。
+select = ["E4", "E7", "E9", "F", "I"]
+ignore = []

@@ -220,6 +220,7 @@ Pushing a `v*` tag makes `.github/workflows/build-exe.yml` build the exe on a Wi
 - Answers, notes and API keys are stored **only** in local files; the code contains no reporting logic
 - Network calls happen only when you click *test connection* or *generate*, and only to the base URL you entered
 - `config.json`, `persona*.json` and `secret_note.json` are git-ignored by default — double-check before sharing a fork
+- Found a vulnerability? Please use [SECURITY.md](SECURITY.md) — private advisories only, not public issues
 
 ## FAQ
 
