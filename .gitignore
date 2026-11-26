@@ -49,9 +49,6 @@ startup-error.log
 *.o
 *.obj
 
-# 个人草稿（不入库）
-新建 文本文档.txt
-
 # 临时与备份文件
 *.tmp
 *.bak

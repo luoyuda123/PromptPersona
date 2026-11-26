@@ -4,7 +4,7 @@
 [![Release](https://img.shields.io/github/v/release/luoyuda123/PromptPersona?sort=semver)](https://github.com/luoyuda123/PromptPersona/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
-[![No dependencies](https://img.shields.io/badge/dependencies-none-brightgreen.svg)](#)
+[![No dependencies](https://img.shields.io/badge/dependencies-none-brightgreen.svg)](pyproject.toml)
 [![Stars](https://img.shields.io/github/stars/luoyuda123/PromptPersona?style=social)](https://github.com/luoyuda123/PromptPersona/stargazers)
 
 **Website:** https://luoyuda123.github.io/PromptPersona/
@@ -30,7 +30,7 @@
 
 ## Why people use it
 
-- **Write once, reuse everywhere** — questionnaire → `persona.json` (stable Chinese dimension keys) → `persona_system.txt` ready for any client that accepts a System Prompt
+- **Write once, reuse everywhere** — questionnaire → `persona.json` (stable `dim1…dim12` keys with readable Chinese labels) → `persona_system.txt` ready for any client that accepts a System Prompt
 - **Ten UI languages** — Simplified/Traditional Chinese, English, Japanese, Korean, French, Russian, Spanish, German, and Arabic with a real RTL layout (mirrored panels, reversed table columns)
 - **Bring your own models** — auto-discovery from a built-in OpenAI-compatible catalog, or add any endpoint manually; reorder, enable/disable, test the connection
 - **Three execution strategies** — poll (round-robin with a persisted cursor), parallel comparison (up to 8 concurrent calls), or single-model primary
@@ -173,8 +173,11 @@ Keys map to the 12 dimensions (`dim1` identity & background, `dim2` language & r
 │   ├── providers.py         # OpenAI-compatible calls, 3 strategies
 │   └── storage.py           # atomic JSON/TXT storage with defaults
 ├── tests/test_core.py       # 30 unit tests, incl. a local stub server
+├── docs/                    # landing page + screenshots (GitHub Pages source)
 ├── 启动.bat / 运行测试.bat / 打包exe.bat
-└── .github/workflows/       # CI + tag-triggered exe build
+├── pyproject.toml           # tooling only (ruff); the app itself has no deps
+├── CHANGELOG.md / CONTRIBUTING.md / SECURITY.md
+└── .github/                 # CI, tag-triggered exe build, dependabot, issue forms
 ```
 
 ## Development & tests
@@ -213,7 +216,7 @@ py -m PyInstaller --noconfirm --clean --onefile --windowed --name PromptPersona 
 Or just double-click `打包exe.bat` (it installs PyInstaller if missing).
 `--onefile` extracts on first start, so the first launch takes a second or two. If your antivirus complains, switch to `--onedir`.
 
-Pushing a `v*` tag makes `.github/workflows/build-exe.yml` build the exe on a Windows runner and upload it as an artifact.
+Pushing a `v*` tag makes `.github/workflows/build-exe.yml` build the exe on a Windows runner, publish it to a GitHub Release together with `SHA256SUMS.txt`, and print the hash in the release notes.
 
 ## Privacy & security
 
@@ -237,6 +240,10 @@ Pushing a `v*` tag makes `.github/workflows/build-exe.yml` build the exe on a Wi
 - Model benchmark score (latency / cost / style) recorded per run
 - Optional cloud catalog sync and import/export of persona packs
 - More granular prompt templates (task-specific add-ons)
+
+## Contributing
+
+Bug reports and pull requests are welcome — [CONTRIBUTING.md](CONTRIBUTING.md) explains the two-minute loop (run the tests, keep locales in parity), and [CHANGELOG.md](CHANGELOG.md) records what changed.
 
 ## License
 

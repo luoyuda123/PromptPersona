@@ -2,6 +2,17 @@
 
 Semantic versioning: major = behaviour change, minor = new features, patch = fixes only.
 
+## Unreleased
+
+Repository and release engineering only — the app behaviour is unchanged from `1.0.0`.
+
+- Added a static landing page under `docs/` (GitHub Pages), plus Open Graph / Twitter card metadata
+- `build-exe.yml` now publishes a GitHub Release on `v*` tags and writes `SHA256SUMS.txt` next to the exe; it also builds the portable zip
+- Added `SECURITY.md` (private advisories), `CONTRIBUTING.md`, issue forms, a PR template and monthly Dependabot updates for GitHub Actions
+- Added `pyproject.toml` (ruff, import sorting) and a lint job in CI
+- Repository metadata: 18 topics, English description, Discussions enabled
+- Removed internal design drafts from the public history working tree
+
 ## 1.0.0 (2026-11-25)
 
 First usable release.

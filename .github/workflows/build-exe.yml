@@ -28,14 +28,31 @@ jobs:
       - name: Build
         run: python -m PyInstaller --noconfirm --clean --onefile --windowed --name PromptPersona main.py
 
-      - name: Verify artifact and write checksum
+      - name: Verify artifact
         shell: pwsh
         run: |
           if (-not (Test-Path "dist/PromptPersona.exe")) { throw "PromptPersona.exe was not produced" }
           $item = Get-Item "dist/PromptPersona.exe"
-          $hash = (Get-FileHash $item.FullName -Algorithm SHA256).Hash.ToUpper()
-          "$hash  PromptPersona.exe" | Out-File -Encoding ascii "dist/SHA256SUMS.txt"
-          Write-Output "Name: $($item.Name)  Size: $($item.Length)  SHA256: $hash"
+          Write-Output "Name: $($item.Name)  Size: $($item.Length)"
+
+      - name: Package portable zip and write checksums
+        shell: pwsh
+        run: |
+          $ver = if ($env:GITHUB_REF -like 'refs/tags/v*') { $env:GITHUB_REF -replace '^refs/tags/v', '' } else { 'dev' }
+          $zip = "dist/PromptPersona-$ver-windows-portable.zip"
+          New-Item -ItemType Directory -Force "dist/portable" | Out-Null
+          Copy-Item "dist/PromptPersona.exe" "dist/portable/PromptPersona.exe" -Force
+          Copy-Item "LICENSE" "dist/portable/LICENSE" -Force
+          Copy-Item "README.md" "dist/portable/README.md" -Force
+          Compress-Archive -Path "dist/portable/*" -DestinationPath $zip -Force
+          $exeHash = (Get-FileHash "dist/PromptPersona.exe" -Algorithm SHA256).Hash.ToUpper()
+          $zipHash = (Get-FileHash $zip -Algorithm SHA256).Hash.ToUpper()
+          @(
+            "$exeHash  PromptPersona.exe"
+            "$zipHash  $(Split-Path $zip -Leaf)"
+          ) | Out-File -Encoding ascii "dist/SHA256SUMS.txt"
+          Write-Output "exe sha256: $exeHash"
+          Write-Output "zip sha256: $zipHash"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -43,6 +60,7 @@ jobs:
           name: PromptPersona-windows
           path: |
             dist/PromptPersona.exe
+            dist/*-windows-portable.zip
             dist/SHA256SUMS.txt
           if-no-files-found: error
 
@@ -53,11 +71,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           $tag = "${{ github.ref_name }}"
-          $hash = (Get-Content "dist/SHA256SUMS.txt" -Raw).Trim()
-          $notes = "SHA-256 of ``PromptPersona.exe``: ``$hash``" + [Environment]::NewLine + [Environment]::NewLine + "Built by GitHub Actions from $tag."
+          $sums = (Get-Content "dist/SHA256SUMS.txt") -join [Environment]::NewLine
+          $notes = "Checksums for this release:" + [Environment]::NewLine + [Environment]::NewLine + '```' + [Environment]::NewLine + $sums + [Environment]::NewLine + '```' + [Environment]::NewLine + [Environment]::NewLine + "Built by GitHub Actions from $tag."
+          $assets = @("dist/PromptPersona.exe", "dist/SHA256SUMS.txt") + (Get-ChildItem "dist/*-windows-portable.zip" | ForEach-Object { $_.FullName })
           gh release view $tag *> $null
           if ($LASTEXITCODE -eq 0) {
-            gh release upload $tag "dist/PromptPersona.exe" "dist/SHA256SUMS.txt" --clobber
+            gh release upload $tag @assets --clobber
           } else {
-            gh release create $tag "dist/PromptPersona.exe" "dist/SHA256SUMS.txt" --title "PromptPersona $tag" --notes $notes
+            gh release create $tag @assets --title "PromptPersona $tag" --notes $notes
           }
