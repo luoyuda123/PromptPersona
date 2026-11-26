@@ -11,6 +11,8 @@
 
 > Pure Python standard library + Tkinter. No account, no cloud sync, no telemetry. Your answers and API keys never leave your machine.
 
+**One session gives you three files:** `system-prompt.md` to paste into any chat, `persona.md` as a human-readable profile, and `persona.json` with stable keys for scripts, agents, or diffing versions over time.
+
 **Jump to:** [Download](#download) · [Why](#why-people-use-it) · [Who it's for](#who-its-for) · [How it compares](#how-it-compares) · [Screenshots](#screenshots) · [Quick start](#quick-start) · [Languages](#interface-languages) · [Models](#connect-a-model) · [Strategies](#execution-strategies) · [Output files](#generated-files) · [Privacy](#privacy--security) · [FAQ](#faq)
 
 ## Download
@@ -20,6 +22,8 @@
 - Windows 10/11, 13 MB, unsigned. SmartScreen may warn on first run: *More info → Run anyway*.
 - SHA-256 of `v1.0.0`: `757EB005097840E124898A402ABC28AF2CDF682D173E2BBD1BC3E6316C6C5FA9`
 - Prefer running from source? See [Quick start](#quick-start) — it needs nothing but Python.
+
+> If it saves you prompt-writing time, a ⭐ on the repo is the only way a small project like this gets found.
 
 ## Why people use it
 
